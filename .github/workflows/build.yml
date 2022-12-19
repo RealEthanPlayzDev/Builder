@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+      - name: Setup Foreman and install tools
+        uses: Roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build using Rojo
+        run: |
+          rojo build default.project.json --output Builder.rbxm
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Builder.rbxm
+          path: Builder.rbxm
