@@ -1,5 +1,5 @@
 {
-    "name": "Builder",
+    "name": "builder",
     "tree": {
         "$path": "src/Builder"
     }
