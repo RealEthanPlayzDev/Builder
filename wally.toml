@@ -1,8 +1,8 @@
 [package]
-name = "radiatedexodus/builder"
+name = "realethanplayzdev/builder"
 description = "An instance building system"
 license = "MIT"
-authors = ["RealEthanPlayzDev (RadiatedExodus)"]
+authors = ["RadiatedExodus (RealEthanPlayzDev)"]
 version = "0.1.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
