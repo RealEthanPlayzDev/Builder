@@ -2,7 +2,7 @@
 name = "radiatedexodus/builder"
 description = "An instance building system"
 license = "MIT"
-authors = ["RadiatedExodus (RealEthanPlayzDev)"]
+authors = ["RealEthanPlayzDev (RadiatedExodus)"]
 version = "0.1.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
