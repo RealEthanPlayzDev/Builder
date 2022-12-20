@@ -23,6 +23,9 @@ local PropertyChangedSignal = require(script.Resolvable.PropertyChangedSignal)
 local State = require(script.State)
 local MultiState = require(script.MultiState)
 
+--// Utilities
+local Cleaner = require(script.Cleaner)
+
 local Builder = {
     --// Descriptor
     Descriptor = Descriptor;
@@ -38,6 +41,9 @@ local Builder = {
     --// State objects
     State = State;
     MultiState = MultiState;
+
+    --// Utilities
+    Cleaner = Cleaner;
 }
 
 Builder.CreateDescriptorFunctionWithCustomClassLocation = function(customclasseslocation: Instance)
@@ -57,5 +63,6 @@ export type MultiStateResolvable = MultiStateResolvable.MultiStateResolvable
 export type PropertyChangedSignal = PropertyChangedSignal.PropertyChangedSignal
 export type State = State.State
 export type MultiState = MultiState.MultiState
+export type Cleaner = Cleaner.Cleaner
 
 return Builder
