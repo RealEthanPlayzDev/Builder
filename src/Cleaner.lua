@@ -61,7 +61,7 @@ function Cleaner:Remove(... : any)
 end
 
 function Cleaner:Clean()
-    self.OnCleanup:Fire()
+    self.OnCleanup:Fire(self.Objects)
     for obj, destroyfunc in pairs(self.Objects) do
         self.OnObjectCleaning:Fire(obj, destroyfunc)
         obj[destroyfunc](obj)
