@@ -45,11 +45,27 @@ function Cleaner:Add(... : any)
     return
 end
 
+function Cleaner:Remove(... : any)
+    local Objects = {...}
+    for _, obj in ipairs(Objects) do
+        if (typeof(obj) == "table") then
+            for _, o in pairs(obj) do
+                self.OnObjectRemoving:Fire(o)
+                self.Objects[o] = nil
+            end
+        else
+            self.OnObjectRemoving:Fire(obj)
+            self.Objects[obj] = nil
+        end
+    end
+end
+
 function Cleaner:Clean()
     self.OnCleanup:Fire()
     for obj, destroyfunc in pairs(self.Objects) do
         self.OnObjectCleaning:Fire(obj, destroyfunc)
         obj[destroyfunc](obj)
+        self.Objects[obj] = nil
     end
     return
 end
@@ -61,6 +77,7 @@ local function constructor_Cleaner(... : any)
         OnCleanup = RESignal.new(RESignal.SignalBehavior.NewThread);
         OnObjectCleaning = RESignal.new(RESignal.SignalBehavior.NewThread);
         OnObjectAdded = RESignal.new(RESignal.SignalBehavior.NewThread);
+        OnObjectRemoving = RESignal.new(RESignal.SignalBehavior.NewThread);
     }, Cleaner)
 end
 
