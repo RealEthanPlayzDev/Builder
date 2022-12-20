@@ -23,22 +23,28 @@ local PropertyChangedSignal = require(script.Resolvable.PropertyChangedSignal)
 local State = require(script.State)
 local MultiState = require(script.MultiState)
 
-local Builder = {}
+local Builder = {
+    --// Descriptor
+    Descriptor = Descriptor;
 
---// Descriptor
-Builder.Descriptor = Descriptor
+    --// Resolvables
+    Attribute = Attribute;
+    AttributeChangedSignal = AttributeChangedSignal;
+    Event = Event;
+    Method = Method;
+    MultiStateResolvable = MultiStateResolvable;
+    PropertyChangedSignal = PropertyChangedSignal;
 
---// Resolvables
-Builder.Attribute = Attribute
-Builder.AttributeChangedSignal = AttributeChangedSignal
-Builder.Event = Event
-Builder.Method = Method
-Builder.MultiStateResolvable = MultiStateResolvable
-Builder.PropertyChangedSignal = PropertyChangedSignal
+    --// State objects
+    State = State;
+    MultiState = MultiState;
+}
 
---// State objects
-Builder.State = State
-Builder.MultiState = MultiState
+Builder.CreateDescriptorFunctionWithCustomClassLocation = function(customclasseslocation: Instance)
+    return function(classname: string, description: Description?): Descriptor
+        return Builder.Descriptor(classname, description, customclasseslocation)
+    end
+end
 
 --// Types
 export type Description = Descriptor.Description
