@@ -33,13 +33,13 @@ function Cleaner:Add(... : any)
         if (typeof(obj) == "table") then
             for _, o in pairs(obj) do
                 local DestroyFunctionName = DefaultDestroyFunctionNames[typeof(o)] or "Destroy"
-                self.OnObjectAdded:Fire(o, DestroyFunctionName)
                 self.Objects[o] = DestroyFunctionName
+                self.OnObjectAdded:Fire(o, DestroyFunctionName)
             end
         else
             local DestroyFunctionName = DefaultDestroyFunctionNames[typeof(obj)] or "Destroy"
-            self.OnObjectAdded:Fire(obj, DestroyFunctionName)
             self.Objects[obj] = DestroyFunctionName
+            self.OnObjectAdded:Fire(obj, DestroyFunctionName)
         end
     end
     return
