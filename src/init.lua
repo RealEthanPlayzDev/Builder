@@ -24,6 +24,7 @@ local State = require(script.State)
 local MultiState = require(script.MultiState)
 
 --// Utilities
+local Utils = require(script.Utils)
 local Cleaner = require(script.Cleaner)
 
 local Builder = {
@@ -44,6 +45,8 @@ local Builder = {
 
     --// Utilities
     Cleaner = Cleaner;
+    WrappedTypeof = Utils.TypeofWrapped;
+    WrappedInstanceNew = Utils.InstanceNewWrapped;
 }
 
 Builder.CreateDescriptorFunctionWithCustomClassLocation = function(customclasseslocation: Instance)
