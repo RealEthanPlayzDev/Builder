@@ -32,13 +32,14 @@ function Descriptor:Build()
 	local Inst = Utils.InstanceNewWrapped(self.Class, self.CustomClassesLocation)
 	for property, value in pairs(self.Description) do
 		PreventTimeout()
-		if (typeof(property) == "string") and (typeof(value) == "Instance") then
+		if (typeof(property) == "string") then
 			Inst[property] = value
 			continue
 		elseif (typeof(value) == "Instance") then
 			value.Parent = Inst
 			continue
 		elseif (typeof(value) == "table") then
+			if typeof(value["IsA"]) ~= "function" then continue end
 			if value:IsA("Descriptor") then
 				value:Build().Parent = Inst
 			elseif value:IsA("State") and (typeof(property) == "string") then
@@ -51,7 +52,7 @@ function Descriptor:Build()
 				value:Resolve(Inst, property)
 			end
 			continue
-		elseif (typeof(property) == "table") and property:IsA("Resolvable") then
+		elseif (typeof(property) == "table") and (typeof(property["IsA"]) == "function") and property:IsA("Resolvable") then
 			property:Resolve(Inst, value)
 			continue
 		end
@@ -62,7 +63,7 @@ end
 local function constructor_Descriptor(classname: string, description: Description?, customclasseslocation: Instance?): Descriptor
 	return setmetatable({
 		Class = classname;
-		Description = description;
+		Description = description or {};
 		CustomClassesLocation = customclasseslocation;
 	}, Descriptor)
 end
