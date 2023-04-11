@@ -19,7 +19,19 @@ Attribute.__extends = { "Resolvable" }
 setmetatable(Attribute, Resolvable)
 function Attribute:Resolve(inst, value: any)
 	if (typeof(inst) == "Instance") then
-		inst:SetAttribute(self.Target, value)
+		if (typeof(value) == "table") and (typeof(value["IsA"]) == "function") then
+			if value:IsA("State") or value:IsA("DynamicState") then
+				inst:SetAttribute(self.Target, value:Get())
+				if value:IsA("State") then
+					value.OnChanged:Connect(function(value: any)
+						inst:SetAttribute(self.Target, value)
+						return
+					end)
+				end
+			end
+		else
+			inst:SetAttribute(self.Target, value)
+		end
 	else
 		assert(false, "Attribute not supported for "..tostring(inst).." (not Instance)")
 	end
