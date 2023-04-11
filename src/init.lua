@@ -22,6 +22,7 @@ local PropertyChangedSignal = require(script.Resolvable.PropertyChangedSignal)
 --// State objects
 local State = require(script.State)
 local MultiState = require(script.MultiState)
+local DynamicState = require(script.DynamicState)
 
 --// Utilities
 local Utils = require(script.Utils)
@@ -42,6 +43,7 @@ local Builder = {
     --// State objects
     State = State;
     MultiState = MultiState;
+    DynamicState = DynamicState;
 
     --// Utilities
     Cleaner = Cleaner;

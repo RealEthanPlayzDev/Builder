@@ -33,24 +33,27 @@ function Descriptor:Build()
 	for property, value in pairs(self.Description) do
 		PreventTimeout()
 		if (typeof(property) == "string") then
-			Inst[property] = value
+			if (typeof(value["IsA"]) == "function") then
+				if value:IsA("State") or value:IsA("DynamicState") then
+					Inst[property] = value:Get()
+					if value:IsA("State") then
+						value.OnChanged:Connect(function(value: any)
+							Inst[property] = value
+							return
+						end)
+					end
+				elseif value:IsA("MultiStateResolvable") then
+					value:Resolve(Inst, property)
+				end
+			else
+				Inst[property] = value
+			end
 			continue
-		elseif (typeof(value) == "Instance") then
+		elseif (typeof(value) == "Instance") and (typeof(property) == nil) then
 			value.Parent = Inst
 			continue
-		elseif (typeof(value) == "table") then
-			if typeof(value["IsA"]) ~= "function" then continue end
-			if value:IsA("Descriptor") then
-				value:Build().Parent = Inst
-			elseif value:IsA("State") and (typeof(property) == "string") then
-				Inst[property] = value:Get()
-				value.OnChanged:Connect(function(value: any)
-					Inst[property] = value
-					return
-				end)
-			elseif value:IsA("MultiStateResolvable") and (typeof(property) == "string") then
-				value:Resolve(Inst, property)
-			end
+		elseif (typeof(value) == "table") and (typeof(value["IsA"]) == "function") and value:IsA("Descriptor") then
+			value:Build().Parent = Inst
 			continue
 		elseif (typeof(property) == "table") and (typeof(property["IsA"]) == "function") and property:IsA("Resolvable") then
 			property:Resolve(Inst, value)
