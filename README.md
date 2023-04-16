@@ -7,7 +7,7 @@ https://realethanplayzdev.github.io/Builder/About/
 ## Install Builder
 - Install via Wally, add the following to your ``wally.toml`` file:
 ```
-Builder = "realethanplayzdev/builder@0.1.4
+Builder = "realethanplayzdev/builder@0.1.5
 ```
 - Get an rbxm from [GitHub Actions build](https://github.com/RealEthanPlayzDev/Builder/actions/workflows/build.yml) (latest commits, potentially unstable) (needs a GitHub account to download artifacts)
 - Get an rbxm from [releases](https://github.com/RealEthanPlayzDev/Builder/releases)
