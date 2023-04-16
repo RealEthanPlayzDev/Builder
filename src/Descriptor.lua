@@ -33,7 +33,7 @@ function Descriptor:Build()
 	for property, value in pairs(self.Description) do
 		PreventTimeout()
 		if (typeof(property) == "string") then
-			if (typeof(value["IsA"]) == "function") then
+			if (typeof(value) == "table") and (typeof(value["IsA"]) == "function") then
 				if value:IsA("State") or value:IsA("DynamicState") then
 					Inst[property] = value:Get()
 					if value:IsA("State") then
